@@ -1,4 +1,6 @@
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
+from .models import MyUser
 
 
 class HomePageView(TemplateView):
@@ -7,3 +9,9 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class CreateUserView(CreateView):
+    model = MyUser
+    fields = "__all__"
+    template_name = "create_user.html"
