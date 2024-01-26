@@ -1,6 +1,7 @@
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
 from .models import MyUser
+from .forms import CreateUserForm
 
 
 class HomePageView(TemplateView):
@@ -11,7 +12,7 @@ class HomePageView(TemplateView):
         return context
 
 
-class CreateUserView(CreateView):
+class CreateUserView(FormView):
+    form_class = CreateUserForm
     model = MyUser
-    fields = "__all__"
     template_name = "create_user.html"
