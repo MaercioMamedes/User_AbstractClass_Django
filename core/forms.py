@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import PasswordInput
+from django.core.exceptions import ValidationError
 
 
 class CreateUserForm(forms.Form):
@@ -10,3 +11,11 @@ class CreateUserForm(forms.Form):
     email = forms.CharField(max_length=100, required=True)
     password = forms.CharField(widget=PasswordInput, label="Senha", required=True)
     password_confirm = forms.CharField(widget=PasswordInput, label="confirme a senha", required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        cpf = cleaned_data.get('cpf')
+        if cpf == 'teste':
+            raise ValidationError("deu ruim")
+
+        return cleaned_data
